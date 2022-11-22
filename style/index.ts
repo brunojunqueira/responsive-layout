@@ -1,10 +1,7 @@
-import * as React from 'react';
 import { color } from './colors';
 import 'css-properties';
 
-export type StyleProps = StyleAttributes & StyleBooleans & StyleProperties;
-
-export type CSSProps = { [key in keyof CSSStyleDeclaration]?: string };
+type CSSProps = { [key in keyof CSSStyleDeclaration]?: string };
 
 export interface StyleAttributes {
   location?:
@@ -19,7 +16,7 @@ export interface StyleAttributes {
     | 'bottom-right';
 }
 
-export interface StyleProperties extends Omit<CSSProps, 'color' | 'flex'> {
+export interface StyleProperties extends Omit<CSSProps, 'flex'> {
   color?: color | (string & {});
   bgColor?: color | (string & {});
   bg?: string;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import '../style/style.scss';
+import '../../style/style.scss';
 
 interface LayoutContextProps {}
 

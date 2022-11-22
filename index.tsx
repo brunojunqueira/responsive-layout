@@ -3,7 +3,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from './App';
-import LayoutProvider from './LayoutContext';
+import LayoutProvider from './contexts/LayoutContext';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
