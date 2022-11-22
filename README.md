@@ -1,2 +1,2 @@
 # responsive-layout
-## A powerful and responsive Styled Components framework.
+A powerful and responsive styled components framework for React.
