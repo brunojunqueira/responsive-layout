@@ -3,9 +3,7 @@ import ResponsiveComponent, {
   ResponsiveComponentProps,
 } from '../ResponsiveComponent';
 
-interface TextProps extends React.StyleHTMLAttributes<HTMLSpanElement> {
-  children?: React.ReactNode;
-}
+export interface TextProps {}
 
 export default function Text({
   as = 'span',

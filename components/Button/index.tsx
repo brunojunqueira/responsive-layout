@@ -4,10 +4,11 @@ import ResponsiveComponent, {
   ResponsiveComponentProps,
 } from '../ResponsiveComponent';
 
-interface ButtonProps {}
+export interface ButtonProps {}
 
 export default function Button({
   as = 'button',
+  className = 'rl_button',
   ...rest
 }: ButtonProps & ResponsiveComponentProps<typeof as>) {
   return (

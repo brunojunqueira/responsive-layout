@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { StyleAttributes, StyleBooleans, StyleProperties } from '../../style';
+import { ComponentsProps } from '../../types';
 
 export interface ResponsiveComponentProps<
   K extends
-    | keyof HTMLElementTagNameMap
-    | ((...any: any) => React.ReactElement<any>)
+    | keyof JSX.IntrinsicElements
+    | React.JSXElementConstructor<ComponentsProps>
 > extends StyleAttributes,
     StyleBooleans,
     StyleProperties,
@@ -20,16 +21,15 @@ export default function ResponsiveComponent({
   ...rest
 }: ResponsiveComponentProps<typeof as>) {
   const AsElement = as;
-
   const [styleAttributes, setStyleAttributtes] = React.useState<string[]>();
   const [styleProperties, setStyleProperties] =
     React.useState<StyleProperties>();
   const [styleBooleans, setStyleBooleans] = React.useState<string[]>();
 
   React.useEffect(() => {
-    const _attributtes = { ...(rest as StyleAttributes) };
-    const _properties = { ...(rest as StyleProperties) };
-    const _booleans = { ...(rest as StyleBooleans) };
+    const _attributtes = { ...({ ...rest } as StyleAttributes) };
+    const _properties = { ...({ ...rest } as StyleProperties) };
+    const _booleans = { ...({ ...rest } as StyleBooleans) };
 
     if (_attributtes) {
       setStyleAttributtes(() =>

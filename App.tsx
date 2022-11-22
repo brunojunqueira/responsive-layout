@@ -12,7 +12,7 @@ export default function App() {
     >
       <Header>
         <Button>
-          <Text as="div">a</Text>
+          <Text>a</Text>
           <Text>b</Text>
         </Button>
         <Button>Beautiful</Button>

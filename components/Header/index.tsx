@@ -3,10 +3,11 @@ import ResponsiveComponent, {
   ResponsiveComponentProps,
 } from '../ResponsiveComponent';
 
-interface HeaderProps {}
+export interface HeaderProps {}
 
 export default function Header({
   as = 'div',
+  className = 'rl_header',
   children,
   ...rest
 }: HeaderProps & ResponsiveComponentProps<typeof as>) {

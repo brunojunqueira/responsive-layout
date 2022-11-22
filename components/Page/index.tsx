@@ -3,7 +3,7 @@ import ResponsiveComponent, {
   ResponsiveComponentProps,
 } from '../ResponsiveComponent';
 
-interface PageProps {
+export interface PageProps {
   title?: string;
   iconSrc?: string;
 }
@@ -11,6 +11,7 @@ interface PageProps {
 export default function Page({
   title,
   iconSrc,
+  className = 'rl_page',
   ...rest
 }: PageProps & ResponsiveComponentProps<'div'>) {
   const [oldIcon, setOldIcon] = React.useState('');
