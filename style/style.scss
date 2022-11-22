@@ -1,0 +1,15 @@
+@use 'shortcuts/locations';
+@use 'shortcuts/displays';
+
+@use 'components/text';
+@use 'components/button';
+@use 'components/header';
+@use 'components/page';
+
+* {
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

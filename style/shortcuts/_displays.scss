@@ -1,0 +1,36 @@
+.flex {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexInline {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.justifyBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between !important;
+}
+
+.justifyAround {
+  display: flex;
+  align-items: center;
+  justify-content: space-around !important;
+}
+
+.justifyEvenly {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly !important;
+}
