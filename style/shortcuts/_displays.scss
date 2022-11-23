@@ -1,36 +1,31 @@
 .flex {
   display: flex !important;
-  align-items: center;
-  justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .flexInline {
   display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .flexColumn {
-  display: flex;
+  display: flex !important;
   flex-direction: column !important;
-  align-items: center;
-  justify-content: center;
 }
 
 .justifyBetween {
-  display: flex;
-  align-items: center;
+  display: flex !important;
   justify-content: space-between !important;
 }
 
 .justifyAround {
-  display: flex;
-  align-items: center;
+  display: flex !important;
   justify-content: space-around !important;
 }
 
 .justifyEvenly {
-  display: flex;
-  align-items: center;
+  display: flex !important;
   justify-content: space-evenly !important;
 }
