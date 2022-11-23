@@ -8,6 +8,8 @@ export default function App() {
     <Page
       title="Teste de página"
       iconSrc="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
+      alignItems="center"
+      gap='10px'
     >
       <Button>
         <Text>a</Text>
