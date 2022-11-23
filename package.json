@@ -21,6 +21,5 @@
   "devDependencies": {
     "react-scripts": "latest",
     "sass": "^1.56.1"
-  },
-  "module": "--resolveJsonModule"
+  }
 }

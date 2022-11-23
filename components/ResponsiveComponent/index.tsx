@@ -1,23 +1,25 @@
 import * as React from 'react';
 import { StyleAttributes, StyleBooleans, StyleProperties } from '../../style';
-import { ComponentsProps } from '../../types';
 
-export interface ResponsiveComponentProps<
-  K extends
-    | keyof JSX.IntrinsicElements
-    | React.JSXElementConstructor<ComponentsProps>
-> extends StyleAttributes,
+export type asType =
+  | keyof JSX.IntrinsicElements
+  | React.JSXElementConstructor<any>;
+
+export interface ResponsiveComponentProps<K extends asType>
+  extends StyleAttributes,
     StyleBooleans,
     StyleProperties,
     Omit<React.HTMLAttributes<K>, 'color' | 'translate'> {
-  as?: keyof HTMLElementTagNameMap | ((...any: any) => React.ReactElement<any>);
+  as?: asType;
   children?: React.ReactNode;
+  ref?: React.Ref<K>;
 }
 
 export default function ResponsiveComponent({
   as = 'div',
   children,
   className = '',
+  ref,
   ...rest
 }: ResponsiveComponentProps<typeof as>) {
   const AsElement = as;
@@ -27,14 +29,12 @@ export default function ResponsiveComponent({
   const [styleBooleans, setStyleBooleans] = React.useState<string[]>();
 
   React.useEffect(() => {
-    const _attributtes = { ...({ ...rest } as StyleAttributes) };
-    const _properties = { ...({ ...rest } as StyleProperties) };
-    const _booleans = { ...({ ...rest } as StyleBooleans) };
+    const _attributtes = Object.values({ ...rest }) as StyleAttributes[];
+    const _properties = { ...rest } as StyleProperties;
+    const _booleans = Object.keys(rest) as (keyof StyleBooleans)[];
 
     if (_attributtes) {
-      setStyleAttributtes(() =>
-        Object.keys(_attributtes)?.map((key) => ' ' + _attributtes[key])
-      );
+      setStyleAttributtes(() => _attributtes.map((_att) => ' ' + _att));
     }
     if (_properties) {
       setStyleProperties(() => ({
@@ -64,18 +64,19 @@ export default function ResponsiveComponent({
       }));
     }
     if (_booleans) {
-      setStyleBooleans(() => Object.keys(_booleans).map((key) => ' ' + key));
+      setStyleBooleans(() => _booleans.map((key) => ' ' + key));
     }
   }, []);
   return (
     <AsElement
+      ref={ref}
       className={
         className +
         styleAttributes?.map((att) => att) +
         styleBooleans?.map((boo) => boo)
       }
       style={styleProperties}
-      {...(rest as React.HTMLAttributes<typeof as>)}
+      {...(rest as React.HTMLAttributes<any>)}
     >
       {children}
     </AsElement>
