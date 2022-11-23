@@ -16,7 +16,7 @@ export interface ResponsiveComponentProps<K extends asType>
 }
 
 export default function ResponsiveComponent({
-  as = 'div',
+  as,
   children,
   className = '',
   ref,
@@ -71,6 +71,7 @@ export default function ResponsiveComponent({
     <AsElement
       ref={ref}
       className={
+        'rl_component ' +
         className +
         styleAttributes?.map((att) => att) +
         styleBooleans?.map((boo) => boo)
