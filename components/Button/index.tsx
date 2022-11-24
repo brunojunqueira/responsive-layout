@@ -19,9 +19,8 @@ function _Button({
   );
 }
 
-const Button = React.forwardRef<
-  asType,
-  thisElementProps
->((props, ref) => _Button({ ...props, ref }));
+const Button = React.forwardRef<asType, thisElementProps>((props, ref) =>
+  _Button({ ...props, ref })
+);
 
 export default Button;

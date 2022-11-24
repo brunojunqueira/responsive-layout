@@ -26,12 +26,11 @@ export default function RLComponent({
 }: RLComponentProps) {
   const AsElement = as;
   const [styleAttributes, setStyleAttributtes] = React.useState<string[]>();
-  const [styleProperties, setStyleProperties] =
-    React.useState<StyleProperties>();
+  const [styleProperties, setStyleProperties] = React.useState<{}>();
 
   React.useEffect(() => {
     const _attributtes = [...Object.values({ ...rest }), ...Object.keys(rest)];
-    const _properties = { ...rest };
+    const _properties: StyleProperties = { ...rest } as StyleProperties;
 
     if (_attributtes) {
       setStyleAttributtes(() => _attributtes.map((_att) => ' ' + _att));
@@ -43,22 +42,10 @@ export default function RLComponent({
           backgroundColor: _properties.bgColor,
           color: _properties.color,
           flexDirection: _properties.flexDir,
-          marginTop:
-            typeof _properties.mt === 'string'
-              ? _properties.mt
-              : String(_properties.mt),
-          marginBottom:
-            typeof _properties.mb === 'string'
-              ? _properties.mb
-              : String(_properties.mb),
-          marginLeft:
-            typeof _properties.ml === 'string'
-              ? _properties.ml
-              : String(_properties.ml),
-          marginRight:
-            typeof _properties.mr === 'string'
-              ? _properties.mr
-              : String(_properties.mr),
+          marginTop: _properties.mt,
+          marginBottom: _properties.mb,
+          marginLeft: _properties.ml,
+          marginRight: _properties.mr,
         },
         ..._properties,
       }));

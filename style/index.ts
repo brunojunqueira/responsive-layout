@@ -1,7 +1,10 @@
 import { color } from './colors';
 import 'css-properties';
 
-type CSSProps = { [key in keyof CSSStyleDeclaration]?: string };
+type CSSProps = Omit<
+  { [key in keyof CSSStyleDeclaration]?: string | number },
+  'flex'
+>;
 
 export interface StyleAttributes {
   location?:
@@ -16,10 +19,10 @@ export interface StyleAttributes {
     | 'bottom-right';
 }
 
-export interface StyleProperties extends Omit<CSSProps, 'flex'> {
+export interface StyleProperties extends CSSProps {
   color?: color | (string & {});
   bgColor?: color | (string & {});
-  bg?: string;
+  bg?: color | (string & {});
   mt?: string | number;
   ml?: string | number;
   mr?: string | number;
