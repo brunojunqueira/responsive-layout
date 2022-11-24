@@ -9,7 +9,7 @@ type thisElementProps = PageProps & RLComponentBaseProps;
 
 function _Page({ title, className = 'rl_page', ...rest }: thisElementProps) {
   React.useEffect(() => {
-    if (document.title !== title) {
+    if (title && document.title !== title) {
       document.title = title;
     }
     return () => {

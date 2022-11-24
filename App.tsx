@@ -1,17 +1,20 @@
 import * as React from 'react';
 import Button from './components/Button';
+import Flex from './components/Flex';
 import Page from './components/Page';
-import Text from './components/Text';
+import About from './pages/About';
+import Home from './pages/Home';
 
 export default function App() {
+  const [page, setPage] = React.useState(<Home />);
+
   return (
-    <Page title="Teste de página" flex>
-      <Button>
-        <Text>a</Text>
-        <Text>b</Text>
-      </Button>
-      <Button>Beautiful</Button>
-      <Text> Lorem Ipsum</Text>
+    <Page>
+      <Flex gap="10px">
+        <Button onClick={() => setPage(<Home />)}>Home</Button>
+        <Button onClick={() => setPage(<About />)}>About</Button>
+      </Flex>
+      {page}
     </Page>
   );
 }

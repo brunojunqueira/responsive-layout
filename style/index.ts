@@ -22,7 +22,7 @@ export interface StyleAttributes {
 export interface StyleProperties extends CSSProps {
   color?: color | (string & {});
   bgColor?: color | (string & {});
-  bg?: color | (string & {});
+  bg?: string;
   mt?: string | number;
   ml?: string | number;
   mr?: string | number;
