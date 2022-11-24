@@ -1,17 +1,22 @@
 import * as React from 'react';
-import ResponsiveComponent, {
-  ResponsiveComponentProps,
-} from '../ResponsiveComponent';
+import RLComponent, { asType, RLComponentBaseProps } from '../RLComponent';
 
-export interface TextProps {}
+export interface TextProps {
+  as?: asType;
+}
 
-export default function Text({
-  as = 'span',
-  ...rest
-}: TextProps & ResponsiveComponentProps<typeof as>) {
+type thisElementProps = TextProps & RLComponentBaseProps;
+
+function _Text({ as = 'span', ...rest }: thisElementProps) {
   return (
-    <ResponsiveComponent as={as} className={'rl_text'} {...rest}>
+    <RLComponent as={as} className={'rl_text'} {...rest}>
       {rest.children}
-    </ResponsiveComponent>
+    </RLComponent>
   );
 }
+
+const Text = React.forwardRef<asType, thisElementProps>((props, ref) =>
+  _Text({ ...props, ref })
+);
+
+export default Text;

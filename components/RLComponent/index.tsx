@@ -5,33 +5,33 @@ export type asType =
   | keyof JSX.IntrinsicElements
   | React.JSXElementConstructor<any>;
 
-export interface ResponsiveComponentProps<K extends asType>
+export type RLComponentBaseProps = Omit<RLComponentProps, 'as'>;
+
+interface RLComponentProps
   extends StyleAttributes,
     StyleBooleans,
     StyleProperties,
-    Omit<React.HTMLAttributes<K>, 'color' | 'translate'> {
-  as?: asType;
+    Omit<React.HTMLAttributes<any>, 'color' | 'translate'> {
+  as: asType;
   children?: React.ReactNode;
-  ref?: React.Ref<K>;
+  ref?: React.Ref<any>;
 }
 
-export default function ResponsiveComponent({
+export default function RLComponent({
   as,
   children,
   className = '',
   ref,
   ...rest
-}: ResponsiveComponentProps<typeof as>) {
+}: RLComponentProps) {
   const AsElement = as;
   const [styleAttributes, setStyleAttributtes] = React.useState<string[]>();
   const [styleProperties, setStyleProperties] =
     React.useState<StyleProperties>();
-  const [styleBooleans, setStyleBooleans] = React.useState<string[]>();
 
   React.useEffect(() => {
-    const _attributtes = Object.values({ ...rest }) as StyleAttributes[];
-    const _properties = { ...rest } as StyleProperties;
-    const _booleans = Object.keys(rest) as (keyof StyleBooleans)[];
+    const _attributtes = [...Object.values({ ...rest }), ...Object.keys(rest)];
+    const _properties = { ...rest };
 
     if (_attributtes) {
       setStyleAttributtes(() => _attributtes.map((_att) => ' ' + _att));
@@ -63,21 +63,15 @@ export default function ResponsiveComponent({
         ..._properties,
       }));
     }
-    if (_booleans) {
-      setStyleBooleans(() => _booleans.map((key) => ' ' + key));
-    }
   }, []);
   return (
     <AsElement
       ref={ref}
       className={
-        'rl_component ' +
-        className +
-        styleAttributes?.map((att) => att) +
-        styleBooleans?.map((boo) => boo)
+        'rl_component ' + className + styleAttributes?.map((att) => att)
       }
       style={styleProperties}
-      {...(rest as React.HTMLAttributes<any>)}
+      {...rest}
     >
       {children}
     </AsElement>

@@ -1,28 +1,27 @@
 import * as React from 'react';
-import ResponsiveComponent, {
-  ResponsiveComponentProps,
-} from '../ResponsiveComponent';
+import RLComponent, { asType, RLComponentBaseProps } from '../RLComponent';
 
-export interface ButtonProps {}
+interface ButtonProps {
+  as?: asType;
+}
 
-let exass: keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+type thisElementProps = ButtonProps & RLComponentBaseProps;
 
 function _Button({
   as = 'button',
   className = 'rl_button',
   ...rest
-}: ButtonProps & ResponsiveComponentProps<typeof as>) {
-  exass = as;
+}: thisElementProps) {
   return (
-    <ResponsiveComponent className="rl_button" as={as} {...rest}>
+    <RLComponent className="rl_button" as={as} {...rest}>
       {rest.children}
-    </ResponsiveComponent>
+    </RLComponent>
   );
 }
 
 const Button = React.forwardRef<
-  JSX.IntrinsicElements | React.JSXElementConstructor<any>,
-  ButtonProps & ResponsiveComponentProps<typeof exass>
+  asType,
+  thisElementProps
 >((props, ref) => _Button({ ...props, ref }));
 
 export default Button;

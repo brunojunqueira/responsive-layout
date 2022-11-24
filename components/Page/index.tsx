@@ -1,48 +1,30 @@
 import * as React from 'react';
-import ResponsiveComponent, {
-  ResponsiveComponentProps,
-} from '../ResponsiveComponent';
+import RLComponent, { asType, RLComponentBaseProps } from '../RLComponent';
 
 export interface PageProps {
   title?: string;
-  iconSrc?: string;
 }
 
-export default function Page({
-  title,
-  iconSrc,
-  className = 'rl_page',
-  ...rest
-}: PageProps & ResponsiveComponentProps<'div'>) {
-  const [oldIcon, setOldIcon] = React.useState('');
+type thisElementProps = PageProps & RLComponentBaseProps;
+
+function _Page({ title, className = 'rl_page', ...rest }: thisElementProps) {
   React.useEffect(() => {
-    let link: HTMLLinkElement = document.querySelector('#icon');
     if (document.title !== title) {
       document.title = title;
     }
-    if (link) {
-      setOldIcon(link.href);
-      link.rel = 'icon';
-      link.href = iconSrc;
-    } else {
-      if (iconSrc) {
-        link = document.createElement('link');
-        link.id = 'icon';
-        link.rel = 'icon';
-        link.href = iconSrc;
-        document.head.appendChild(link);
-      }
-    }
     return () => {
-      try {
-        document.title = document.baseURI.toString();
-        link.href = oldIcon;
-      } catch {}
+      document.title = document.baseURI.toString();
     };
-  }, [title, iconSrc]);
+  }, [title]);
   return (
-    <ResponsiveComponent className="rl_page" as={'div'} {...rest}>
+    <RLComponent className="rl_page" as={'div'} {...rest}>
       {rest.children}
-    </ResponsiveComponent>
+    </RLComponent>
   );
 }
+
+const Page = React.forwardRef<asType, thisElementProps>((props, ref) =>
+  _Page({ ...props, ref })
+);
+
+export default Page;
