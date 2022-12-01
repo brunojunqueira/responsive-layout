@@ -1,3 +1,3 @@
 import colors from './colors';
 
-export type color = keyof typeof colors;
+export type Color = keyof typeof colors;
