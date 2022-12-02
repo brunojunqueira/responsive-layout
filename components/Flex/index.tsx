@@ -7,11 +7,7 @@ interface FlexProps {
 
 type thisElementProps = FlexProps & RLComponentBaseProps;
 
-function _Flex({
-  as = 'div',
-  className = 'rl_flex',
-  ...rest
-}: thisElementProps) {
+function _Flex({ as = 'div', className, ...rest }: thisElementProps) {
   return (
     <RLComponent className="rl_flex" as={as} {...rest}>
       {rest.children}

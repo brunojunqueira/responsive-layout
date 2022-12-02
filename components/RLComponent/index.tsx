@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { StyleAttributes, StyleBooleans, StyleProperties } from '../../style';
 import colors from '../../style/colors/colors';
-import CheckType from '../../utils/CheckType';
 
 export type asType =
   | keyof JSX.IntrinsicElements
@@ -13,7 +12,7 @@ interface RLComponentProps
   extends StyleAttributes,
     StyleBooleans,
     StyleProperties,
-    Omit<React.ComponentPropsWithoutRef<any>, 'color' | 'translate'> {
+    Omit<React.HTMLAttributes<any>, 'color' | 'translate' | 'flex'> {
   as: asType;
   children?: React.ReactNode;
   ref?: React.Ref<any>;
@@ -22,7 +21,7 @@ interface RLComponentProps
 export default function RLComponent({
   as,
   children,
-  className,
+  className = '',
   ref,
   ...rest
 }: RLComponentProps) {
@@ -30,14 +29,15 @@ export default function RLComponent({
   const [styleAttributes, setStyleAttributtes] = React.useState<string[]>();
   const [styleProperties, setStyleProperties] = React.useState<{}>();
 
+  console.log(styleAttributes);
+
   React.useEffect(() => {
     const _attributtes = [
-      ...Object.values(rest as StyleAttributes),
-      ...Object.keys(rest as StyleBooleans),
+      ...Object.values({ ...rest } as StyleAttributes),
+      ...Object.keys({ ...rest } as StyleBooleans),
     ];
-    let _properties = Object.keys(rest).map((key) => {
-      console.log(CheckType<StyleProperties>(key as keyof StyleProperties));
-    });
+
+    let _properties = { ...rest } as StyleProperties;
 
     rest.color = colors[rest.color] ?? rest.color;
 
@@ -74,7 +74,7 @@ export default function RLComponent({
     <AsElement
       ref={ref}
       className={
-        'rl_component ' + className + styleAttributes?.map((att) => att)
+        'rl_component' + styleAttributes?.map((att) => att + ' ' + className)
       }
       style={styleProperties}
       {...rest}

@@ -7,7 +7,7 @@ export interface PageProps {
 
 type thisElementProps = PageProps & RLComponentBaseProps;
 
-function _Page({ title, className = 'rl_page', ...rest }: thisElementProps) {
+function _Page({ title, className, ...rest }: thisElementProps) {
   React.useEffect(() => {
     if (title && document.title !== title) {
       document.title = title;

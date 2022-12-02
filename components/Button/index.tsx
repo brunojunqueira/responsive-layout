@@ -7,11 +7,7 @@ interface ButtonProps {
 
 type thisElementProps = ButtonProps & RLComponentBaseProps;
 
-function _Button({
-  as = 'button',
-  className = 'rl_button',
-  ...rest
-}: thisElementProps) {
+function _Button({ as = 'button', className, ...rest }: thisElementProps) {
   return (
     <RLComponent className="rl_button" as={as} {...rest}>
       {rest.children}

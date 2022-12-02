@@ -3,7 +3,10 @@ import 'css-properties';
 
 type strumber = string | number;
 
-type CSSProps = Omit<{ [key in keyof CSSStyleDeclaration]?: strumber }, 'flex'>;
+type CSSProps = Omit<
+  { [key in keyof CSSStyleDeclaration]?: strumber },
+  'flex' | 'color'
+>;
 
 export interface StyleAttributes {
   location?:
