@@ -9,11 +9,8 @@ export interface PageProps {
 type thisElementProps = PageProps & RLComponentBaseProps;
 
 function _Page({ path, title, className, ...rest }: thisElementProps) {
-  const [show, setShow] = React.useState(false);
-  React.useEffect(() => {
-    if (window.location.pathname.endsWith(path)) setShow(true);
-    else setShow(false);
-  }, [window.location.pathname]);
+  const show = window.location.pathname === path;
+
   React.useEffect(() => {
     if (title && document.title !== title) {
       document.title = title;
@@ -23,9 +20,11 @@ function _Page({ path, title, className, ...rest }: thisElementProps) {
     };
   }, [title]);
   return (
-    <RLComponent className="rl_page" as={'div'} {...rest}>
-      {rest.children}
-    </RLComponent>
+    show && (
+      <RLComponent className="rl_page" as={'div'} {...rest}>
+        {rest.children}
+      </RLComponent>
+    )
   );
 }
 

@@ -23,59 +23,66 @@ export default function RLComponent({
   children,
   className = '',
   ref,
+  flex,
+  flexColumn,
+  justifyAround,
+  justifyBetween,
+  justifyEvenly,
+  location,
   ...rest
 }: RLComponentProps) {
   const AsElement = as;
-  const [styleAttributes, setStyleAttributtes] = React.useState<string[]>();
+  const [styleAttributes, setStyleAttributtes] = React.useState<string[]>([]);
   const [styleProperties, setStyleProperties] = React.useState<{}>();
 
-  console.log(styleAttributes);
-
   React.useEffect(() => {
-    const _attributtes = [
-      ...Object.values({ ...rest } as StyleAttributes),
-      ...Object.keys({ ...rest } as StyleBooleans),
-    ];
-
-    let _properties = { ...rest } as StyleProperties;
-
     rest.color = colors[rest.color] ?? rest.color;
 
-    if (_attributtes) {
-      setStyleAttributtes(() => _attributtes.map((_att) => ' ' + _att));
-    }
-    if (_properties) {
-      setStyleProperties(() => ({
-        ...{
-          background: _properties?.bg,
-          backgroundColor: _properties?.bgColor,
-          color: _properties?.color,
-          flexDirection: _properties?.flexDir,
-          margin: _properties?.m,
-          marginTop: _properties?.my || _properties?.mt,
-          marginBottom: _properties?.my || _properties?.mb,
-          marginLeft: _properties?.ml,
-          marginRight: _properties?.mr,
-          marginInlineStart: _properties.mx || _properties?.ms,
-          marginInlineEnd: _properties.mx || _properties?.me,
-          padding: _properties?.p,
-          paddingTop: _properties?.py || _properties?.pt,
-          paddingBottom: _properties?.py || _properties?.pb,
-          paddingLeft: _properties?.pl,
-          paddingRight: _properties?.pr,
-          paddingInlineStart: _properties?.px || _properties?.ps,
-          paddingInlineEnd: _properties?.px || _properties?.pe,
-        },
-        ..._properties,
-      }));
-    }
+    setStyleAttributtes(() => {
+      let att: string[] = [];
+      if (flex) att.push('flex');
+      if (flexColumn) att.push('flexColumn');
+      if (justifyEvenly) att.push('justifyEvenly');
+      if (justifyAround) att.push('justifyAround');
+      if (justifyBetween) att.push('justifyBetween');
+
+      return att;
+    });
+
+    setStyleProperties(() => {
+      let props = [];
+      if (rest.bg) props.push(['background', rest?.bg]);
+      if (rest?.bgColor) props.push(['backgroundColor', rest?.bgColor]);
+      if (rest?.color) props.push(['color', rest?.color]);
+      if (rest?.flexDir) props.push(['flexDirection', rest?.flexDir]);
+      if (rest?.m) props.push(['margin', rest?.m]);
+      if (rest?.my || rest?.mt) props.push(['marginTop', rest?.my || rest?.mt]);
+      if (rest?.my || rest?.mb)
+        props.push(['marginBottom', rest?.my || rest?.mb]);
+      if (rest?.ml) props.push(['marginLeft', rest?.ml]);
+      if (rest?.mr) props.push(['marginRight', rest?.mr]);
+      if (rest.mx || rest?.ms)
+        props.push(['marginInlineStart', rest.mx || rest?.ms]);
+      if (rest.mx || rest?.me)
+        props.push(['marginInlineEnd', rest.mx || rest?.me]);
+      if (rest?.p) props.push(['padding', rest?.p]);
+      if (rest?.py || rest?.pt)
+        props.push(['paddingTop', rest?.py || rest?.pt]);
+      if (rest?.py || rest?.pb)
+        props.push(['paddingBottom', rest?.py || rest?.pb]);
+      if (rest?.pl) props.push(['paddingLeft', rest?.pl]);
+      if (rest?.pr) props.push(['paddingRight', rest?.pr]);
+      if (rest?.px || rest?.ps)
+        props.push(['paddingInlineStart', rest?.px || rest?.ps]);
+      if (rest?.px || rest?.pe)
+        props.push(['paddingInlineEnd', rest?.px || rest?.pe]);
+      return { ...Object.fromEntries(props), ...rest };
+    });
   }, []);
   return (
     <AsElement
       ref={ref}
-      className={
-        'rl_component' + styleAttributes?.map((att) => att + ' ' + className)
-      }
+      className={className + styleAttributes.map((att) => ' ' + att)}
       style={styleProperties}
       {...rest}
     >
