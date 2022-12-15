@@ -2,12 +2,18 @@ import * as React from 'react';
 import RLComponent, { asType, RLComponentBaseProps } from '../RLComponent';
 
 export interface PageProps {
+  path: string;
   title?: string;
 }
 
 type thisElementProps = PageProps & RLComponentBaseProps;
 
-function _Page({ title, className, ...rest }: thisElementProps) {
+function _Page({ path, title, className, ...rest }: thisElementProps) {
+  const [show, setShow] = React.useState(false);
+  React.useEffect(() => {
+    if (window.location.pathname.endsWith(path)) setShow(true);
+    else setShow(false);
+  }, [window.location.pathname]);
   React.useEffect(() => {
     if (title && document.title !== title) {
       document.title = title;

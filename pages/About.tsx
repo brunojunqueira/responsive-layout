@@ -5,7 +5,7 @@ import Text from '../components/Text';
 
 export default function About() {
   return (
-    <Page title="About" flex>
+    <Page path="/about" title="About" flex>
       <Text>This is About power</Text>
     </Page>
   );
