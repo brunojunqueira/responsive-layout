@@ -9,6 +9,7 @@ import Home from './pages/Home';
 createRoot(document.querySelector('#root')).render(
   <StrictMode>
     <RLProvider>
+      <div>Header</div>
       <Home />
       <About />
     </RLProvider>

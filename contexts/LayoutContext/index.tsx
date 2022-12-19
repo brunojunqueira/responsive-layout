@@ -2,9 +2,7 @@ import * as React from 'react';
 
 import '../../style/style.scss';
 
-interface RLContextProps {
-  query: { [key: string]: string };
-}
+interface RLContextProps {}
 
 const RLContext = React.createContext({} as RLContextProps);
 
@@ -13,25 +11,7 @@ interface LayoutProviderProps {
 }
 
 export default function RLProvider({ children }: LayoutProviderProps) {
-  const [_query, _setQuery] = React.useState(() => {
-    return window.location.search
-      ? Object.fromEntries(
-          window.location.search
-            .replace('?', '')
-            .split('&')
-            .map((item) => {
-              if (item) {
-                return item.split('=');
-              }
-            })
-        )
-      : {};
-  });
-  return (
-    <RLContext.Provider value={{ query: _query }}>
-      {children}
-    </RLContext.Provider>
-  );
+  return <RLContext.Provider value={{}}>{children}</RLContext.Provider>;
 }
 
 export function useRLContext() {
