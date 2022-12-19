@@ -3,7 +3,10 @@ import { PageProps } from '../../components/Page';
 
 import '../../style/style.scss';
 
-interface LayoutContextProps {}
+interface LayoutContextProps {
+  pages: { name: string; path: string }[];
+  appendPage: (name: string, path: string) => void;
+}
 
 const LayoutContext = React.createContext({} as LayoutContextProps);
 
@@ -12,5 +15,11 @@ interface LayoutProviderProps {
 }
 
 export default function LayoutProvider({ children }: LayoutProviderProps) {
-  return <LayoutContext.Provider value={{}}>{children}</LayoutContext.Provider>;
+  const [pages, setPages] = React.useState([]);
+  function appendPage(name: string, path: string) {}
+  return (
+    <LayoutContext.Provider value={{ pages, appendPage }}>
+      {children}
+    </LayoutContext.Provider>
+  );
 }
