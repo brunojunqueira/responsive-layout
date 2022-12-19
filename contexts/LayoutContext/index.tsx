@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { PageProps } from '../../components/Page';
 
 import '../../style/style.scss';
 
 interface RLContextProps {
-  currentPath: string;
+  query: { [key: string]: string };
 }
 
 const RLContext = React.createContext({} as RLContextProps);
@@ -14,12 +13,20 @@ interface LayoutProviderProps {
 }
 
 export default function RLProvider({ children }: LayoutProviderProps) {
-  const [_currentPath, _setCurrentPath] = React.useState('/');
-  React.useMemo(() => {
-    _setCurrentPath(window.location.pathname);
-  }, [window.location.pathname]);
+  const [_query, _setQuery] = React.useState(() => {
+    return Object.fromEntries(
+      window.location.search
+        .replace('?', '')
+        .split('&')
+        .map((item) => {
+          if (item) {
+            return item.split('=');
+          }
+        })
+    );
+  });
   return (
-    <RLContext.Provider value={{ currentPath: _currentPath }}>
+    <RLContext.Provider value={{ query: _query }}>
       {children}
     </RLContext.Provider>
   );

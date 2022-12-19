@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useRLContext } from '../../contexts/LayoutContext';
 import RLComponent, { asType, RLComponentBaseProps } from '../RLComponent';
 
 export interface PageProps {
@@ -10,22 +9,25 @@ export interface PageProps {
 type thisElementProps = PageProps & RLComponentBaseProps;
 
 function _Page({ path, title, className, ...rest }: thisElementProps) {
-  const { currentPath } = useRLContext();
   React.useEffect(() => {
-    if (title && document.title !== title && path === currentPath) {
+    if (
+      title &&
+      document.title !== title &&
+      path === window.location.pathname
+    ) {
       document.title = title;
     }
     return () => {
       document.title = document.baseURI.toString();
     };
   }, []);
-  return (
-    path === currentPath && (
+  if (path === window.location.pathname) {
+    return (
       <RLComponent className="rl_page" as={'div'} {...rest}>
         {rest.children}
       </RLComponent>
-    )
-  );
+    );
+  }
 }
 
 const Page = React.forwardRef<asType, thisElementProps>((props, ref) =>

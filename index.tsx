@@ -6,10 +6,7 @@ import RLProvider from './contexts/LayoutContext';
 import About from './pages/About';
 import Home from './pages/Home';
 
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-
-root.render(
+createRoot(document.querySelector('#root')).render(
   <StrictMode>
     <RLProvider>
       <Home />

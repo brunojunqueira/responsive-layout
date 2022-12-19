@@ -51,31 +51,28 @@ export default function RLComponent({
 
     setStyleProperties(() => {
       let props = [];
-      if (rest.bg) props.push(['background', rest?.bg]);
-      if (rest?.bgColor) props.push(['backgroundColor', rest?.bgColor]);
-      if (rest?.color) props.push(['color', rest?.color]);
-      if (rest?.flexDir) props.push(['flexDirection', rest?.flexDir]);
-      if (rest?.m) props.push(['margin', rest?.m]);
-      if (rest?.my || rest?.mt) props.push(['marginTop', rest?.my || rest?.mt]);
-      if (rest?.my || rest?.mb)
-        props.push(['marginBottom', rest?.my || rest?.mb]);
-      if (rest?.ml) props.push(['marginLeft', rest?.ml]);
-      if (rest?.mr) props.push(['marginRight', rest?.mr]);
-      if (rest.mx || rest?.ms)
-        props.push(['marginInlineStart', rest.mx || rest?.ms]);
-      if (rest.mx || rest?.me)
-        props.push(['marginInlineEnd', rest.mx || rest?.me]);
-      if (rest?.p) props.push(['padding', rest?.p]);
-      if (rest?.py || rest?.pt)
-        props.push(['paddingTop', rest?.py || rest?.pt]);
-      if (rest?.py || rest?.pb)
-        props.push(['paddingBottom', rest?.py || rest?.pb]);
-      if (rest?.pl) props.push(['paddingLeft', rest?.pl]);
-      if (rest?.pr) props.push(['paddingRight', rest?.pr]);
-      if (rest?.px || rest?.ps)
-        props.push(['paddingInlineStart', rest?.px || rest?.ps]);
-      if (rest?.px || rest?.pe)
-        props.push(['paddingInlineEnd', rest?.px || rest?.pe]);
+      if (rest.bg) props.push(['background', rest.bg]);
+      if (rest.bgColor) props.push(['backgroundColor', rest.bgColor]);
+      if (rest.color) props.push(['color', rest.color]);
+      if (rest.flexDir) props.push(['flexDirection', rest.flexDir]);
+      if (rest.m) props.push(['margin', rest.m]);
+      if (rest.my || rest.mt) props.push(['marginTop', rest.my || rest.mt]);
+      if (rest.my || rest.mb) props.push(['marginBottom', rest.my || rest.mb]);
+      if (rest.ml) props.push(['marginLeft', rest.ml]);
+      if (rest.mr) props.push(['marginRight', rest.mr]);
+      if (rest.mx || rest.ms)
+        props.push(['marginInlineStart', rest.mx || rest.ms]);
+      if (rest.mx || rest.me)
+        props.push(['marginInlineEnd', rest.mx || rest.me]);
+      if (rest.p) props.push(['padding', rest.p]);
+      if (rest.py || rest.pt) props.push(['paddingTop', rest.py || rest.pt]);
+      if (rest.py || rest.pb) props.push(['paddingBottom', rest.py || rest.pb]);
+      if (rest.pl) props.push(['paddingLeft', rest.pl]);
+      if (rest.pr) props.push(['paddingRight', rest.pr]);
+      if (rest.px || rest.ps)
+        props.push(['paddingInlineStart', rest.px || rest.ps]);
+      if (rest.px || rest.pe)
+        props.push(['paddingInlineEnd', rest.px || rest.pe]);
       return { ...Object.fromEntries(props), ...rest };
     });
   }, []);
