@@ -14,16 +14,18 @@ interface LayoutProviderProps {
 
 export default function RLProvider({ children }: LayoutProviderProps) {
   const [_query, _setQuery] = React.useState(() => {
-    return Object.fromEntries(
-      window.location.search
-        .replace('?', '')
-        .split('&')
-        .map((item) => {
-          if (item) {
-            return item.split('=');
-          }
-        })
-    );
+    return window.location.search
+      ? Object.fromEntries(
+          window.location.search
+            .replace('?', '')
+            .split('&')
+            .map((item) => {
+              if (item) {
+                return item.split('=');
+              }
+            })
+        )
+      : {};
   });
   return (
     <RLContext.Provider value={{ query: _query }}>
