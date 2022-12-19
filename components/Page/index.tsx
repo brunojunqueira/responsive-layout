@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRLContext } from '../../contexts/LayoutContext';
 import RLComponent, { asType, RLComponentBaseProps } from '../RLComponent';
 
 export interface PageProps {
@@ -9,9 +10,9 @@ export interface PageProps {
 type thisElementProps = PageProps & RLComponentBaseProps;
 
 function _Page({ path, title, className, ...rest }: thisElementProps) {
-
+  const { currentPath } = useRLContext();
   React.useEffect(() => {
-    if (title && document.title !== title) {
+    if (title && document.title !== title && path === currentPath) {
       document.title = title;
     }
     return () => {
@@ -19,9 +20,11 @@ function _Page({ path, title, className, ...rest }: thisElementProps) {
     };
   }, []);
   return (
-    <RLComponent className="rl_page" as={'div'} {...rest}>
-      {rest.children}
-    </RLComponent>
+    path === currentPath && (
+      <RLComponent className="rl_page" as={'div'} {...rest}>
+        {rest.children}
+      </RLComponent>
+    )
   );
 }
 

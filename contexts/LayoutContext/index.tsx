@@ -3,23 +3,28 @@ import { PageProps } from '../../components/Page';
 
 import '../../style/style.scss';
 
-interface LayoutContextProps {
-  pages: { name: string; path: string }[];
-  appendPage: (name: string, path: string) => void;
+interface RLContextProps {
+  currentPath: string;
 }
 
-const LayoutContext = React.createContext({} as LayoutContextProps);
+const RLContext = React.createContext({} as RLContextProps);
 
 interface LayoutProviderProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-export default function LayoutProvider({ children }: LayoutProviderProps) {
-  const [pages, setPages] = React.useState([]);
-  function appendPage(name: string, path: string) {}
+export default function RLProvider({ children }: LayoutProviderProps) {
+  const [_currentPath, _setCurrentPath] = React.useState('/');
+  React.useMemo(() => {
+    _setCurrentPath(window.location.pathname);
+  }, [window.location.pathname]);
   return (
-    <LayoutContext.Provider value={{ pages, appendPage }}>
+    <RLContext.Provider value={{ currentPath: _currentPath }}>
       {children}
-    </LayoutContext.Provider>
+    </RLContext.Provider>
   );
+}
+
+export function useRLContext() {
+  return React.useContext(RLContext);
 }
